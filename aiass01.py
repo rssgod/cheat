@@ -146,36 +146,29 @@ class LogisticsSimulator:
             if choice == '1':
                 best = self.bst.find_min()
                 if best:
-                    print("
-[OPTIMAL ROUTE FOUND]")
+                    print("[OPTIMAL ROUTE FOUND]")
                     print(best)
 
                     # 🔥 Automatically copy best route to clipboard
                     pyperclip.copy(str(best))
-                    print("
-✔ Route copied to clipboard!")
+                    print("✔ Route copied to clipboard!")
 
                 else:
-                    print("
-[!] No routes in system.")
-                input("
-Press Enter to return...")
+                    print("[!] No routes in system.")
+                input("Press Enter to return...")
 
             elif choice == '2':
                 routes = []
                 self.bst.get_all_sorted(self.bst.root, routes)
 
-                print(f"
-[ALL ROUTES - SORTED BY {self.criterion.upper()}]")
+                print(f"[ALL ROUTES - SORTED BY {self.criterion.upper()}]")
                 for i, r in enumerate(routes, 1):
                     print(f"{i}. {r}")
 
-                input("
-Press Enter to return...")
+                input("Press Enter to return...")
 
             elif choice == '3':
-                print("
-Set Priority: 1. Distance | 2. Time | 3. Cost")
+                print("Set Priority: 1. Distance | 2. Time | 3. Cost")
                 c_choice = input("Choice: ")
                 mapping = {"1": "distance", "2": "time", "3": "cost"}
 
@@ -185,8 +178,7 @@ Set Priority: 1. Distance | 2. Time | 3. Cost")
                 time.sleep(1)
 
             elif choice == '4':
-                print("
---- Register New Route ---")
+                print("--- Register New Route ---")
                 try:
                     start = input("From City: ")
                     end = input("To City: ")
@@ -206,8 +198,7 @@ Set Priority: 1. Distance | 2. Time | 3. Cost")
                 time.sleep(1)
 
             elif choice == '5':
-                print("
-[!] Simulating unexpected traffic and fuel spikes...")
+                print("[!] Simulating unexpected traffic and fuel spikes...")
 
                 for r in self.all_routes_raw:
                     r.travel_time = round(r.travel_time * random.uniform(0.9, 1.3), 1)
