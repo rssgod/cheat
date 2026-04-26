@@ -1,0 +1,55 @@
+-- 1. View all databases
+SHOW DATABASES;
+
+-- 2. Create a database
+CREATE DATABASE COLLEGE_DB;
+
+-- 3. Use database
+USE COLLEGE_DB;
+
+-- 4. View all tables (initially empty)
+SHOW TABLES;
+
+-- 5. Create table WITHOUT constraints
+CREATE TABLE STUDENT (
+    student_id INT,
+    name VARCHAR(50),
+    age INT
+);
+
+-- 6. Create table WITH constraints
+CREATE TABLE COURSE (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50) NOT NULL,
+    duration INT CHECK (duration > 0)
+);
+
+-- 7. Insert records
+INSERT INTO STUDENT VALUES (101, 'Rahul', 20);
+INSERT INTO STUDENT VALUES (102, 'Priya', 19);
+
+-- 8. Start transaction
+START TRANSACTION;
+
+-- 9. Update record
+UPDATE STUDENT
+SET age = 21
+WHERE student_id = 101;
+
+-- 10. Delete record
+DELETE FROM STUDENT
+WHERE student_id = 102;
+
+-- 11. Save changes
+COMMIT;
+
+-- 12. Start another transaction
+START TRANSACTION;
+
+-- 13. Update again
+UPDATE STUDENT
+SET age = 25
+WHERE student_id = 101;
+
+-- 14. Undo changes
+ROLLBACK;

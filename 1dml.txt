@@ -1,0 +1,60 @@
+-- Create Table
+CREATE TABLE STUDENT(
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    branch VARCHAR(20),
+    marks INT
+);
+
+-- INSERT queries
+INSERT INTO STUDENT VALUES (101, 'Rahul', 20, 'CSE', 85);
+INSERT INTO STUDENT VALUES (102, 'Priya', 19, 'IT', 78);
+INSERT INTO STUDENT VALUES (103, 'Amit', 21, 'CSE', 92);
+INSERT INTO STUDENT VALUES (104, 'Sneha', 20, 'AIDS', 67);
+INSERT INTO STUDENT VALUES (105, 'Rohit', 22, 'MECH', 35);
+
+-- SELECT all data
+SELECT * FROM STUDENT;
+
+-- SELECT with condition
+SELECT name, marks 
+FROM STUDENT
+WHERE marks > 80;
+
+-- UPDATE single record
+UPDATE STUDENT
+SET marks = 90
+WHERE student_id = 101;
+
+-- UPDATE multiple columns
+UPDATE STUDENT
+SET branch = 'AIDS', age = 20
+WHERE name = 'Priya';
+
+-- DELETE specific record
+DELETE FROM STUDENT
+WHERE student_id = 105;
+
+-- DELETE with condition
+DELETE FROM STUDENT
+WHERE marks < 40;
+
+-- SELECT with ORDER BY
+SELECT name, marks
+FROM STUDENT
+ORDER BY marks DESC;
+
+-- Aggregate function
+SELECT AVG(marks) AS average_marks
+FROM STUDENT;
+
+-- GROUP BY
+SELECT branch, COUNT(*) AS total_students
+FROM STUDENT
+GROUP BY branch;
+
+-- LIKE operator
+SELECT *
+FROM STUDENT
+WHERE name LIKE 'R%';

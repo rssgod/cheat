@@ -1,0 +1,36 @@
+-- Create Table
+CREATE TABLE EMPLOYEE (
+    emp_id NUMBER PRIMARY KEY,
+    name VARCHAR2(50),
+    salary NUMBER
+);
+
+-- Insert Sample Data
+INSERT INTO EMPLOYEE VALUES (101, 'Rahul', 50000);
+INSERT INTO EMPLOYEE VALUES (102, 'Priya', 40000);
+
+-- Audit Table
+CREATE TABLE EMP_AUDIT (
+    emp_id NUMBER,
+    old_salary NUMBER,
+    new_salary NUMBER,
+    action_date DATE
+);
+
+-- Trigger for auditing salary updates
+CREATE OR REPLACE TRIGGER salary_audit_trigger
+BEFORE UPDATE ON EMPLOYEE
+FOR EACH ROW
+BEGIN
+    INSERT INTO EMP_AUDIT
+    VALUES (:OLD.emp_id, :OLD.salary, :NEW.salary, SYSDATE);
+END;
+/
+
+-- Test Trigger
+UPDATE EMPLOYEE
+SET salary = 65000
+WHERE emp_id = 101;
+
+-- View Audit Data
+SELECT * FROM EMP_AUDIT;

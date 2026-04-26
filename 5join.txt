@@ -1,0 +1,85 @@
+-- Create Tables
+CREATE TABLE DEPARTMENT (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+CREATE TABLE EMPLOYEE (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary INT,
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES DEPARTMENT(dept_id)
+);
+
+-- Insert Data
+INSERT INTO DEPARTMENT VALUES (1, 'IT');
+INSERT INTO DEPARTMENT VALUES (2, 'HR');
+INSERT INTO DEPARTMENT VALUES (3, 'Finance');
+
+INSERT INTO EMPLOYEE VALUES (101, 'Rahul', 50000, 1);
+INSERT INTO EMPLOYEE VALUES (102, 'Priya', 40000, 2);
+INSERT INTO EMPLOYEE VALUES (103, 'Amit', 60000, 1);
+INSERT INTO EMPLOYEE VALUES (104, 'Sneha', 45000, 2);
+INSERT INTO EMPLOYEE VALUES (105, 'Rohit', 70000, 3);
+
+-- =========================
+-- (a) VIEWS
+-- =========================
+
+-- Create View
+CREATE VIEW emp_view AS
+SELECT name, salary
+FROM EMPLOYEE;
+
+-- Update View (update base table through view)
+UPDATE emp_view
+SET salary = 55000
+WHERE name = 'Rahul';
+
+-- Drop View
+DROP VIEW emp_view;
+
+-- =========================
+-- (b) JOIN QUERIES
+-- =========================
+
+-- INNER JOIN
+SELECT E.name, D.dept_name
+FROM EMPLOYEE E
+INNER JOIN DEPARTMENT D
+ON E.dept_id = D.dept_id;
+
+-- LEFT OUTER JOIN
+SELECT E.name, D.dept_name
+FROM EMPLOYEE E
+LEFT JOIN DEPARTMENT D
+ON E.dept_id = D.dept_id;
+
+-- RIGHT OUTER JOIN
+SELECT E.name, D.dept_name
+FROM EMPLOYEE E
+RIGHT JOIN DEPARTMENT D
+ON E.dept_id = D.dept_id;
+
+-- =========================
+-- (c) SUBQUERIES
+-- =========================
+
+-- Subquery with IN
+SELECT name
+FROM EMPLOYEE
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM DEPARTMENT
+    WHERE dept_name = 'IT'
+);
+
+-- Subquery with EXISTS
+SELECT name
+FROM EMPLOYEE E
+WHERE EXISTS (
+    SELECT *
+    FROM DEPARTMENT D
+    WHERE E.dept_id = D.dept_id
+);

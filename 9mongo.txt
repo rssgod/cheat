@@ -1,0 +1,76 @@
+use studentDB
+
+db.student.insertMany([
+{
+    roll_no: 1,
+    name: "Amit",
+    city: "Pune",
+    marks: 85
+},
+{
+    roll_no: 2,
+    name: "Riya",
+    city: "Mumbai",
+    marks: 92
+},
+{
+    roll_no: 3,
+    name: "Karan",
+    city: "Pune",
+    marks: 76
+},
+{
+    roll_no: 4,
+    name: "Sneha",
+    city: "Nashik",
+    marks: 88
+}
+])
+
+db.student.find(
+{},
+{
+    roll_no: 1,
+    name: 1,
+    city: 1,
+    marks: 1,
+    _id: 0
+}
+)
+
+db.student.find(
+{
+    $and: [
+        { city: "Pune" },
+        { marks: { $gt: 80 } }
+    ]
+}
+)
+
+db.student.find(
+{
+    $or: [
+        { marks: { $gt: 90 } },
+        { city: "Mumbai" }
+    ]
+}
+)
+
+db.student.updateOne(
+{
+    name: "Karan"
+},
+{
+    $set: {
+        marks: 82
+    }
+}
+)
+
+db.student.deleteOne(
+{
+    roll_no: 4
+}
+)
+
+db.student.find().pretty()

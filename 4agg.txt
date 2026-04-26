@@ -1,0 +1,49 @@
+-- Create Table
+CREATE TABLE EMPLOYEE (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(20),
+    salary INT,
+    join_date DATE
+);
+
+-- Insert Data
+INSERT INTO EMPLOYEE VALUES (101, 'Rahul', 'IT', 50000, '2023-01-10');
+INSERT INTO EMPLOYEE VALUES (102, 'Priya', 'HR', 40000, '2022-03-15');
+INSERT INTO EMPLOYEE VALUES (103, 'Amit', 'IT', 60000, '2021-07-20');
+INSERT INTO EMPLOYEE VALUES (104, 'Sneha', 'HR', 45000, '2023-06-05');
+INSERT INTO EMPLOYEE VALUES (105, 'Rohit', 'Finance', 70000, '2020-09-12');
+
+-- Aggregate Functions with GROUP BY
+SELECT department, SUM(salary) AS total_salary
+FROM EMPLOYEE
+GROUP BY department;
+
+SELECT department, AVG(salary) AS avg_salary
+FROM EMPLOYEE
+GROUP BY department;
+
+-- HAVING Clause
+SELECT department, AVG(salary) AS avg_salary
+FROM EMPLOYEE
+GROUP BY department
+HAVING AVG(salary) > 45000;
+
+-- COUNT with GROUP BY
+SELECT department, COUNT(*) AS total_employees
+FROM EMPLOYEE
+GROUP BY department;
+
+-- String Functions
+SELECT UPPER(name) FROM EMPLOYEE;
+SELECT SUBSTRING(name, 1, 3) FROM EMPLOYEE;
+SELECT name, LENGTH(name) FROM EMPLOYEE;
+
+-- Date Functions
+SELECT name, YEAR(join_date) FROM EMPLOYEE;
+SELECT * FROM EMPLOYEE WHERE join_date > '2022-01-01';
+
+-- Math Functions
+SELECT name, ROUND(salary) FROM EMPLOYEE;
+SELECT MAX(salary) FROM EMPLOYEE;
+SELECT MIN(salary) FROM EMPLOYEE;

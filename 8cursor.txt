@@ -1,0 +1,43 @@
+-- Create Table
+CREATE TABLE EMPLOYEE (
+    emp_id INT,
+    name VARCHAR2(50),
+    dept_no INT,
+    salary INT
+);
+
+-- Insert Sample Data
+INSERT INTO EMPLOYEE VALUES (101, 'Rahul', 10, 50000);
+INSERT INTO EMPLOYEE VALUES (102, 'Priya', 20, 70000);
+INSERT INTO EMPLOYEE VALUES (103, 'Amit', 10, 90000);
+INSERT INTO EMPLOYEE VALUES (104, 'Sneha', 30, 60000);
+
+-- Enable output
+SET SERVEROUTPUT ON;
+
+-- PL/SQL Block using Explicit Cursor
+DECLARE
+    CURSOR emp_cursor IS
+        SELECT name, dept_no, salary
+        FROM EMPLOYEE
+        WHERE salary = (SELECT MAX(salary) FROM EMPLOYEE);
+
+    v_name EMPLOYEE.name%TYPE;
+    v_dept EMPLOYEE.dept_no%TYPE;
+    v_salary EMPLOYEE.salary%TYPE;
+
+BEGIN
+    OPEN emp_cursor;
+
+    LOOP
+        FETCH emp_cursor INTO v_name, v_dept, v_salary;
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('Name: ' || v_name ||
+                             ' Dept: ' || v_dept ||
+                             ' Salary: ' || v_salary);
+    END LOOP;
+
+    CLOSE emp_cursor;
+END;
+/
